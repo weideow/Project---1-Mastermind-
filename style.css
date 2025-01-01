@@ -1,0 +1,48 @@
+
+  /* .board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 325px;
+  } */
+  
+  /* .sqr {
+    width: 20%;
+    height: 100px;
+    aspect-ratio: 8/1;
+    border: 3px solid black;
+    font-size: 64px;
+    text-align: center;
+  } */
+
+  .sqr {
+    display: inline table   ;
+    flex-wrap: wrap;
+    width: 100px;
+    width: 20%;
+    aspect-ratio: 8/1;
+    border: 3px solid black;
+    font-size: 64px;
+    text-align: center;
+  }
+
+  .column {
+    display: inline table   ;
+    flex-wrap: wrap;
+    width: 100px;
+    width: 20%;
+    aspect-ratio: 8/1;
+    border: 3px solid black;
+    font-size: 64px;
+    text-align: center;
+  }
+
+  .column1 {
+    display: inline table   ;
+    flex-wrap: wrap;
+    width: 100px;
+    width: 20%;
+    aspect-ratio: 8/1;
+    border: 3px solid black;
+    font-size: 64px;
+    text-align: center;
+  }
