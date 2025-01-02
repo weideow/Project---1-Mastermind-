@@ -9,6 +9,8 @@ const playerChoice = document.querySelectorAll('.column');
 
 function init () {
     render();
+    randomComp();
+    updateBoard();
 };
 
 function render() {
@@ -80,25 +82,41 @@ columnBtns.forEach((btn) => {
 //     return compSelection;
 // }
 
+let compSelection = [];
+
 function randomComp() {
-    const compSelection = [];
+    compSelection = [];
     const colorChoice = ['green', 'red', 'blue'];
     for (let i =0; i<colorChoice.length; i++) {
         const randomIndex = Math.floor(Math.random()*colorChoice.length);
         compSelection.push(colorChoice[randomIndex]);
     }
     return compSelection;
+    
 }
 
+
+// function updateBoard() {
+//     hiddenAns.forEach((square) => {
+//         for (let i = 0; i<compSelection.length; i++) {
+//             square.style.backgroundColor = compSelection[i];
+//         }
+
+//    });
+// }
 
 function updateBoard() {
-    hiddenAns.forEach((square) => {
-        for (let i = 0; i<compSelection.length; i++) {
-            square.style.backgroundColor = compSelection[i];
-        }
+ 
+    hiddenAns.forEach((square, index) => {
 
-   });
+        if (index < compSelection.length) {
+            square.style.backgroundColor = compSelection[index];
+        }
+    });
 }
+
+init();
+
 
 
 
