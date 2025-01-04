@@ -10,7 +10,7 @@ function init () {
     render();
     randomComp();
     updateBoard();
-    checkAnswer();
+    // checkAnswer1();
 };
 
 function render() {
@@ -40,9 +40,6 @@ function handleClick(event) {
 // });this is wrong, color was applied to the background instead of buttons itself
 
 
-
-
-
 const columnBtns = document.querySelectorAll('.column');
 const hiddenAns = document.querySelectorAll('.sqr');
 const colorChoice = ['green', 'red', 'blue']; 
@@ -57,18 +54,34 @@ columnBtns.forEach((btn, index) => {
         btn.style.backgroundColor = chosenColor 
 
         playerChoice[`key${index+4}`] = chosenColor;
-
-    
             console.log(playerChoice);
-
    
     });
 
 });
 
-   
+const confirmSelection0 = document.querySelector('#confirm0');
+confirmSelection0.addEventListener('click', () => {
+    checkAnswer1();
+});
 
+function checkAnswer1() {  //compare compSelection against playerChoice number 1
+        const matchingValues = [];
+        if (compSelection.key0 === playerChoice.key7) {
+            matchingValues.push(compSelection.key0);
+        }
+        if (compSelection.key1 === playerChoice.key8) {
+            matchingValues.push(compSelection.key1);
+        }
 
+        if (compSelection.key2 === playerChoice.key9) {
+            matchingValues.push(compSelection.key2);
+        }
+        
+        console.log(matchingValues);
+        return matchingValues;
+
+}
 
 
 // https://stackoverflow.com/questions/69995256/loop-through-colors/69995422#69995422 credits to stackoverflow
@@ -83,19 +96,21 @@ columnBtns.forEach((btn, index) => {
     
 // }//looped through but no selection
 
- 
-
-// let compSelection = [];
 
 function randomComp() {
-    compSelection = [];
+    compSelection0 = [];
+    compSelection = {key0:"",key1:"",key2:""};
     const colorChoice = ['green', 'red', 'blue'];
     for (let i =0; i<colorChoice.length; i++) {
         const randomIndex = Math.floor(Math.random()*colorChoice.length);
-        compSelection.push(colorChoice[randomIndex]);
+        compSelection0.push(colorChoice[randomIndex]);
 
+         const compColor = colorChoice[randomIndex];
+        
+         compSelection[`key${i}`] = compColor; //the object that would be used to match player choice
     }
-
+    // console.log(compSelection0);
+    console.log(compSelection);
     return compSelection;
 
 }
@@ -110,21 +125,19 @@ function randomComp() {
 //    });
 // }
 
+
+
 function updateBoard() {
  
     hiddenAns.forEach((square, index) => {
-            square.style.backgroundColor = compSelection[index];
+            square.style.backgroundColor = compSelection0[index];
             // console.log(compSelection);
     });
 }
 
-function checkAnswer() {
-    randomComp();
-
-}
-
 
 init();
+
 
 
 
