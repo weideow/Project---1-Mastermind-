@@ -1,7 +1,7 @@
-board = ["","",""];
+let board = ["","",""];
 // board1 = ["","",""];
-winner = false;
-loss = false;
+let winner = false;
+let loss = false;
 
 
 
@@ -10,7 +10,9 @@ function init () {
     render();
     randomComp();
     updateBoard();
-    // checkAnswer1();
+    // checkWinner1();
+    // updateMessage();
+    
 };
 
 function render() {
@@ -39,10 +41,12 @@ function handleClick(event) {
 //     });
 // });this is wrong, color was applied to the background instead of buttons itself
 
-
+const messageEls = document.querySelector('#message');
 const columnBtns = document.querySelectorAll('.column');
 const hiddenAns = document.querySelectorAll('.sqr');
 const colorChoice = ['green', 'red', 'blue']; 
+const playerHint0 = document.querySelector('#ans0');
+
 let currentColorIndex = -1;
 let playerChoice ={key4:"", key5:"", key6:"", key7:"", key8:"", key9:""};
 
@@ -62,11 +66,14 @@ columnBtns.forEach((btn, index) => {
 
 const confirmSelection0 = document.querySelector('#confirm0');
 confirmSelection0.addEventListener('click', () => {
-    checkAnswer1();
+    // checkAnswer1();
+    checkWinner1();
+    updateMessage();
 });
 
+const matchingValues = [];
 function checkAnswer1() {  //compare compSelection against playerChoice number 1
-        const matchingValues = [];
+        
         if (compSelection.key0 === playerChoice.key7) {
             matchingValues.push(compSelection.key0);
         }
@@ -83,6 +90,33 @@ function checkAnswer1() {  //compare compSelection against playerChoice number 1
 
 }
 
+function updateMessage() {
+    if (winner === true){
+        messageEls.textContent = "Player Wins!"
+    }
+    else {
+        messageEls.textContent = "Please try again!"
+    }
+}
+
+function checkWinner1() {
+    checkAnswer1();
+    if (matchingValues.length === 3) {
+        winner = true;
+    }
+
+    else if (matchingValues.length === 2) {
+        playerHint0.textContent = "2 right values!"
+    }
+
+    else if (matchingValues.length === 1) {
+        playerHint0.textContent = "1 right value!"
+    }
+
+    else if (matchingValues.length === 0) {
+        playerHint0.textContent = " No correct value!"
+    }
+}
 
 // https://stackoverflow.com/questions/69995256/loop-through-colors/69995422#69995422 credits to stackoverflow
 
