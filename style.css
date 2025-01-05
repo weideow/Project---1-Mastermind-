@@ -17,7 +17,7 @@
   .sqr {
     display: inline table   ;
     flex-wrap: wrap;
-    width: 100px;
+    /* width: 100px; */
     width: 20%;
     aspect-ratio: 8/1;
     border: 3px solid black;
@@ -28,7 +28,7 @@
   .column {
     display: inline table   ;
     flex-wrap: wrap;
-    width: 100px;
+    /* width: 100px; */
     width: 20%;
     aspect-ratio: 8/1;
     border: 3px solid black;
@@ -36,10 +36,10 @@
     text-align: center;
   }
 
-  .column1 {
+  .ans {
     display: inline table   ;
     flex-wrap: wrap;
-    width: 100px;
+    /* width: 100px; */
     width: 20%;
     aspect-ratio: 8/1;
     border: 3px solid black;
