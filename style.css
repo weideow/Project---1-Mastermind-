@@ -40,9 +40,10 @@
     display: inline table   ;
     flex-wrap: wrap;
     /* width: 100px; */
-    width: 20%;
+    
+    width: 10%;
     aspect-ratio: 8/1;
     border: 3px solid black;
-    font-size: 64px;
+    font-size: 32px;
     text-align: center;
   }

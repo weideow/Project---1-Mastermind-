@@ -7,7 +7,6 @@ let loss = false;
 
 
 function init () {
-    render();
     randomComp();
     updateBoard();
     // checkWinner();
@@ -15,16 +14,6 @@ function init () {
     
 };
 
-function render() {
-
-};
-
-
-
-function handleClick(event) {
-    const squareIndex = event.target.id;
-    placePiece (squareIndex);
-}
 
 // const colorChoice = ['green', 'red', 'blue']; 
 // const sect = document.querySelector('section');
