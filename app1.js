@@ -39,8 +39,8 @@ confirmBtns.forEach((button) => {
         let playerGuess = [];
         columns.forEach((column) => { // each click would go through all the columns again, regardless if it is old or new 
             const color = column.style.backgroundColor
-            if (color === "") {
-                return;
+            if (color === "") { 
+                return; //end the loop if one selection is not fulfiled 
             }
             playerGuess.push(color);
         });
@@ -50,6 +50,49 @@ confirmBtns.forEach((button) => {
         }
     });
 });
+
+function checkGuess(playerGuess) {
+    let exactMatches = 0;
+    let correctColorsWrongPosition = 0;
+    let compSelectionCopy = [...compSelection];
+    let playerGuessCopy = [...playerGuess];
+
+    // Check for exact matches
+    for (let i = 0; i < compSelection.length; i++) {
+        if (compSelection[i] === playerGuess[i]) {
+            exactMatches++;
+            compSelectionCopy[i] = null;
+            playerGuessCopy[i] = null;
+        }
+    }
+
+    // Check for correct color, wrong position
+    for (let i = 0; i < playerGuessCopy.length; i++) {
+        if (playerGuessCopy[i] !== null) {
+            for (let j = 0; j < compSelectionCopy.length; j++) {
+                if (playerGuessCopy[i] === compSelectionCopy[j]) {
+                    correctColorsWrongPosition++;
+                    compSelectionCopy[j] = null;
+                    break;
+                }
+            }
+        }
+    }
+
+    console.log('Exact matches: ', exactMatches);
+    console.log('Correct color, wrong position: ', correctColorsWrongPosition);
+
+function updateHint() {
+
+    //update the message into hint
+}
+
+
+    if (exactMatches === 4) {
+        winner = true;
+        updateMessage();
+    }
+}
 
 
 
