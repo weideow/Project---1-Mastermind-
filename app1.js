@@ -9,7 +9,7 @@ const messageEls = document.querySelector('#message');
 const columns = document.querySelectorAll('.column');
 const hiddenAns = document.querySelectorAll('.sqr');
 const confirmBtns = document.querySelectorAll('.confirm');
-const playerHint = document.querySelectorAll('.class');
+const playerHint = document.querySelectorAll('.ans');
 const playerChoice = [];
 
 function init() {
@@ -34,6 +34,8 @@ columns.forEach((btn) => {
     });
 });
 
+let currentAttemptIndex = -1;
+
 confirmBtns.forEach((button) => {
     button.addEventListener('click', () => {
         let playerGuess = [];
@@ -46,12 +48,21 @@ confirmBtns.forEach((button) => {
            }
         });
             console.log(playerGuess);
-           let finalAns = playerGuess.slice(0,4);
-            checkGuess(finalAns);
+           let finalAns = playerGuess.slice(-4);
+            let hintResult = checkGuess(finalAns);
+            
+            playerHint.forEach((hint, index) => {
+                if (index === currentAttemptIndex) {
+                    hint.textContent = hintResult;
+                }
+            });
             console.log(finalAns);
         }
     )
 });
+
+
+
 
 function checkGuess(finalAns) {
     let exactMatches = 0;
@@ -67,7 +78,8 @@ function checkGuess(finalAns) {
             playerGuessCopy[i] = null;
         }
     }
-    //credits to https://stackoverflow.com/questions/2790 8135/mastermind-in-java-right-color-in-the-wrong-position
+    
+    //credits to https://stackoverflow.com/questions/27908135/mastermind-in-java-right-color-in-the-wrong-position
     // Check for correct color, wrong position
     for (let i = 0; i < playerGuessCopy.length; i++) {
         if (playerGuessCopy[i] !== null) {
@@ -84,19 +96,34 @@ function checkGuess(finalAns) {
     console.log('Exact matches: ', exactMatches);
     console.log('Correct color, wrong position: ', correctColorsWrongPosition);
 
-function updateHint() {
+    const hintResult = 'Exact matches: ' + exactMatches + ', Correct color, wrong position: ' + correctColorsWrongPosition;
+    console.log(hintResult);
+    
 
-    //update the message into hint
-}
+    // playerHint.forEach((hint) => {
+    //     columns.forEach((column) => { 
+    //     const color = column.style.backgroundColor
+    //     if (color === "") { 
+    //         return; //end the loop if one selection is not fulfiled 
+    //     }
+    //         else {hint.textContent = hintResult; // Use the passed hintResult here
+    //          } 
 
+    // });
+    // });
 
     if (exactMatches === 4) {
         winner = true;
-        updateMessage();
+        messageEls.textContent = "You Won!"
     }
+
+    currentAttemptIndex++;
+    if (currentAttemptIndex === 4) {
+        loser = true;
+        messageEls.textContent = "You lost to computer!"
+    }
+    return hintResult;
 }
-
-
 
 function updateBoard() {
     hiddenAns.forEach((square, index) => {
@@ -111,5 +138,8 @@ function updateMessage() {
         messageEls.textContent = "Please try again!";
     }
 }
+
+
+
 
 init();
