@@ -16,7 +16,7 @@ function init() {
     randomComp();
     updateBoard();
 }
-
+// https://stackoverflow.com/questions/69995256/loop-through-colors/69995422#69995422 credits to stackoverflow
 function randomComp() {
     compSelection = [];
     for (let i = 0; i < colorChoice.length; i++) {
@@ -42,37 +42,39 @@ confirmBtns.forEach((button) => {
             if (color === "") { 
                 return; //end the loop if one selection is not fulfiled 
             }
-            playerGuess.push(color);
+           else { playerGuess.push(color);
+           }
         });
-
-        if (playerGuess.length === 4) {
-            checkGuess(playerGuess);
+            console.log(playerGuess);
+           let finalAns = playerGuess.slice(0,4);
+            checkGuess(finalAns);
+            console.log(finalAns);
         }
-    });
+    )
 });
 
-function checkGuess(playerGuess) {
+function checkGuess(finalAns) {
     let exactMatches = 0;
     let correctColorsWrongPosition = 0;
     let compSelectionCopy = [...compSelection];
-    let playerGuessCopy = [...playerGuess];
+    let playerGuessCopy = [...finalAns];
 
     // Check for exact matches
     for (let i = 0; i < compSelection.length; i++) {
-        if (compSelection[i] === playerGuess[i]) {
+        if (compSelection[i] === finalAns[i]) {
             exactMatches++;
-            compSelectionCopy[i] = null;
+            compSelectionCopy[i] = null; // to prepare 2 arrays for second check below, null is to skip over checks done earlier
             playerGuessCopy[i] = null;
         }
     }
-
+    //credits to https://stackoverflow.com/questions/2790 8135/mastermind-in-java-right-color-in-the-wrong-position
     // Check for correct color, wrong position
     for (let i = 0; i < playerGuessCopy.length; i++) {
         if (playerGuessCopy[i] !== null) {
-            for (let j = 0; j < compSelectionCopy.length; j++) {
+            for (let j = 0; j < compSelectionCopy.length; j++) { //this loop will be called everytime playerGuess[i] throws a non-null, and look for a match
                 if (playerGuessCopy[i] === compSelectionCopy[j]) {
                     correctColorsWrongPosition++;
-                    compSelectionCopy[j] = null;
+                    compSelectionCopy[j] = null; //prevents duplicates from showing
                     break;
                 }
             }
