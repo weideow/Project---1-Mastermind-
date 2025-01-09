@@ -12,7 +12,14 @@ const confirmBtns = document.querySelectorAll('.confirm');
 const playerHint = document.querySelectorAll('.ans');
 const resetBtn = document.querySelector('#reset');
 const playerChoice = [];
+const robotGo = new Audio('C:/Sounds/robot.mp3');
+const loseSound = new Audio('C:/Sounds/you-lose.mp3')
+const winSound = new Audio('C:/Sounds/victory.mp3')
 
+resetBtn.addEventListener('click', (evt) => { //unable to call robotGo.play in init()
+    robotGo.volume = 0.6
+    robotGo.play()
+});
 
 function init() {
     columns.forEach((btn) => {
@@ -24,6 +31,7 @@ function init() {
         hint.textContent = [];
     });
     compSelection.style.visibility ='hidden';
+
     updateBoard();
 }
 
@@ -112,12 +120,16 @@ function checkGuess(finalAns) {
     console.log(hintResult);
     
     if (exactMatches === 4) {
+        
         winner = true;
+        winSound.volume = 0.6
+        winSound.play()
         messageEls.textContent = "You Won!"
+        return;
     }
 
     currentAttemptIndex++;
-    messageEls.textContent = "Attempt Number"+" "+currentAttemptIndex+1;
+    messageEls.textContent = "Attempt Number"+" "+(currentAttemptIndex+1);
 
     if (currentAttemptIndex === 6 && winner === false) {
          messageEls.textContent = "Last attempt!"
@@ -125,6 +137,8 @@ function checkGuess(finalAns) {
 
     if (currentAttemptIndex === 7 && winner === false) {
         loser = true;
+        loseSound.volume = 0.6
+        loseSound.play()
         messageEls.textContent = "You lost to computer!"
     }
     return hintResult;
@@ -138,9 +152,11 @@ function updateBoard() {
 
 
 function resetGame() {
+    
     init();
 }
 
-resetBtn.addEventListener('click', resetGame); 
+resetBtn.addEventListener('click', resetGame)
 
 init();
+
