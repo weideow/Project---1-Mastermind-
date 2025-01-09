@@ -21,19 +21,7 @@ resetBtn.addEventListener('click', (evt) => { //unable to call robotGo.play in i
     robotGo.play()
 });
 
-function init() {
-    columns.forEach((btn) => {
-        btn.style.backgroundColor = [];
-    });
-    randomComp();
-    messageEls.textContent = "Computer is ready! Begin from the top...";
-    playerHint.forEach((hint) =>{
-        hint.textContent = [];
-    });
-    compSelection.style.visibility ='hidden';
 
-    updateBoard();
-}
 
 function randomComp() {
     compSelection = [];
@@ -81,7 +69,6 @@ confirmBtns.forEach((button) => {
     )
 
 });
-
 
 
 
@@ -139,7 +126,7 @@ function checkGuess(finalAns) {
         loser = true;
         loseSound.volume = 0.6
         loseSound.play()
-        messageEls.textContent = "You lost to computer!"
+        messageEls.textContent = "You lost to computer! Correct answer is"+" "+(compSelection)
     }
     return hintResult;
 }
@@ -150,6 +137,19 @@ function updateBoard() {
     });
 }
 
+function init() {
+    columns.forEach((btn) => {
+        btn.style.backgroundColor = [];
+    });
+    randomComp();
+    messageEls.textContent = "Computer is ready! Begin from the top...";
+    playerHint.forEach((hint) =>{
+        hint.textContent = [];
+    });
+    // compSelection.style.visibility ='hidden'; this throws error in console, although does not seem to affect other functions. fix in css instead!
+
+    updateBoard();
+}
 
 function resetGame() {
     
