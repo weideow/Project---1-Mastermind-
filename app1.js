@@ -10,18 +10,29 @@ const columns = document.querySelectorAll('.column');
 const hiddenAns = document.querySelectorAll('.sqr');
 const confirmBtns = document.querySelectorAll('.confirm');
 const playerHint = document.querySelectorAll('.ans');
+const resetBtn = document.querySelector('#reset');
 const playerChoice = [];
 
+
 function init() {
+    columns.forEach((btn) => {
+        btn.style.backgroundColor = [];
+    });
     randomComp();
+    messageEls.textContent = "Computer is ready! Begin from the top...";
+    playerHint.forEach((hint) =>{
+        hint.textContent = [];
+    });
+    compSelection.style.visibility ='hidden';
     updateBoard();
 }
-// https://stackoverflow.com/questions/69995256/loop-through-colors/69995422#69995422 credits to stackoverflow
+
 function randomComp() {
     compSelection = [];
     for (let i = 0; i < colorChoice.length; i++) {
         const randomIndex = Math.floor(Math.random()*colorChoice.length);
         compSelection.push(colorChoice[randomIndex]);
+        // compSelection.style.visibility = 'hidden'; this method appears to throw an error
         console.log(compSelection);
     }
 }
@@ -34,7 +45,7 @@ columns.forEach((btn) => {
     });
 });
 
-let currentAttemptIndex = -1;
+let currentAttemptIndex =-1;
 
 confirmBtns.forEach((button) => {
     button.addEventListener('click', () => {
@@ -45,6 +56,7 @@ confirmBtns.forEach((button) => {
                 return; //end the loop if one selection is not fulfiled 
             }
            else { playerGuess.push(color);
+            
            }
         });
             console.log(playerGuess);
@@ -59,6 +71,7 @@ confirmBtns.forEach((button) => {
             console.log(finalAns);
         }
     )
+
 });
 
 
@@ -79,8 +92,7 @@ function checkGuess(finalAns) {
         }
     }
     
-    //credits to https://stackoverflow.com/questions/27908135/mastermind-in-java-right-color-in-the-wrong-position
-    // Check for correct color, wrong position
+
     for (let i = 0; i < playerGuessCopy.length; i++) {
         if (playerGuessCopy[i] !== null) {
             for (let j = 0; j < compSelectionCopy.length; j++) { //this loop will be called everytime playerGuess[i] throws a non-null, and look for a match
@@ -99,26 +111,19 @@ function checkGuess(finalAns) {
     const hintResult = 'Exact matches: ' + exactMatches + ', Correct color, wrong position: ' + correctColorsWrongPosition;
     console.log(hintResult);
     
-
-    // playerHint.forEach((hint) => {
-    //     columns.forEach((column) => { 
-    //     const color = column.style.backgroundColor
-    //     if (color === "") { 
-    //         return; //end the loop if one selection is not fulfiled 
-    //     }
-    //         else {hint.textContent = hintResult; // Use the passed hintResult here
-    //          } 
-
-    // });
-    // });
-
     if (exactMatches === 4) {
         winner = true;
         messageEls.textContent = "You Won!"
     }
 
     currentAttemptIndex++;
-    if (currentAttemptIndex === 4) {
+    messageEls.textContent = "Attempt Number"+" "+currentAttemptIndex+1;
+
+    if (currentAttemptIndex === 6 && winner === false) {
+         messageEls.textContent = "Last attempt!"
+    }
+
+    if (currentAttemptIndex === 7 && winner === false) {
         loser = true;
         messageEls.textContent = "You lost to computer!"
     }
@@ -131,15 +136,11 @@ function updateBoard() {
     });
 }
 
-function updateMessage() {
-    if (winner) {
-        messageEls.textContent = "Player Wins!";
-    } else {
-        messageEls.textContent = "Please try again!";
-    }
+
+function resetGame() {
+    init();
 }
 
-
-
+resetBtn.addEventListener('click', resetGame); 
 
 init();
