@@ -12,9 +12,9 @@ const confirmBtns = document.querySelectorAll('.confirm');
 const playerHint = document.querySelectorAll('.ans');
 const resetBtn = document.querySelector('#reset');
 const playerChoice = [];
-const robotGo = new Audio('C:/Sounds/robot.mp3');
-const loseSound = new Audio('C:/Sounds/you-lose.mp3')
-const winSound = new Audio('C:/Sounds/victory.mp3')
+const robotGo = new Audio('./robot.mp3');
+const loseSound = new Audio('./you-lose.mp3')
+const winSound = new Audio('./victory.mp3')
 
 resetBtn.addEventListener('click', (evt) => { //unable to call robotGo.play in init()
     robotGo.volume = 0.6
