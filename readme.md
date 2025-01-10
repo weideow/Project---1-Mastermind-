@@ -1,6 +1,6 @@
 Description 
 
-![Gameplay Screenshot]('./Proj1screenshot.png')
+![Gameplay Screenshot](/Proj1screenshot.png)
  
 **Mastermind**
 For project 1, I have decided upon mastermind.  The game was designed and implemented using a combination of Javascritp, HTML and CSS.
